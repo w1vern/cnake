@@ -1,11 +1,11 @@
-#include <iostream>
-
 export module Block;
+
+import std;
 
 export class Block {
 public:
 	Block() {}
-	Block(uint32_t x, uint32_t y) : x(x), y(y) {}
+	Block(std::uint32_t x, std::uint32_t y) : x(x), y(y) {}
 	void operator=(const Block& block)
 	{
 		this->x = block.x;
@@ -17,9 +17,9 @@ public:
 			return true;
 		return false;
 	}*/
-	uint32_t getX() { return x; }
-	uint32_t getY() { return y; }
+	std::uint32_t getX() { return x; }
+	std::uint32_t getY() { return y; }
 private:
-	uint32_t x;
-	uint32_t y;
+	std::uint32_t x;
+	std::uint32_t y;
 };

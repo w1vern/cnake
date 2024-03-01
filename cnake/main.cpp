@@ -1,7 +1,7 @@
-#include <iostream>
-#include <conio.h>
 
 import Game;
+
+import std;
 
 int main() {
 	game();

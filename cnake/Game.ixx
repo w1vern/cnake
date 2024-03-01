@@ -1,9 +1,13 @@
+
+
 export module Game;
 
 import cst;
 import Board;
 
-export void game() 
+import std;
+
+export void game()
 {
 	cst::calc();
 	Board board;
@@ -11,7 +15,11 @@ export void game()
 	bool game_flag = true;
 	while (game_flag)
 	{
+		std::clock_t start = std::clock();
 		game_flag = board.step();
+		std::clock_t time = std::clock() - start;
+		if (time < cst::frameTime)
+			std::this_thread::sleep_for(std::chrono::milliseconds(cst::frameTime - time));
 	}
 
 }

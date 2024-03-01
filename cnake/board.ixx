@@ -1,6 +1,3 @@
-#include <vector>
-#include <iostream>
-
 export module Board;
 
 import Snake;
@@ -8,13 +5,16 @@ import Apple;
 import Block;
 import cst;
 
+import std;
+
 export class Board {
 public:
 	Board() {}
 	bool step()
 	{
 		std::string output(cst::board_x_size * cst::board_y_size, ' ');
-		snake.step();
+		if (!snake.step())
+			return false;
 		if (apple.Exists())
 		{
 			if (snake.getHeadCoord().getX() == apple.getAppleCoord().getX() 
@@ -23,7 +23,8 @@ public:
 				apple.dead();
 				snake.return_back();
 			}
-			std::vector<Block> available_places = snake.get_available_places();
+			std::vector<Block> available_places;
+			snake.get_available_places(available_places);
 			apple.make_apple(available_places);
 			apple.draw(output);
 		}
