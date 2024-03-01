@@ -4,13 +4,13 @@
 export module cst;
 
 export namespace cst {
-	uint16_t board_x_size;
-	uint16_t board_y_size;
-	uint16_t frameRate;
-	uint16_t frameTime;
+	uint32_t board_x_size;
+	uint32_t board_y_size;
+	uint32_t frameRate;
+	uint32_t frameTime;
 	float spawn_chance;
-	char snake_symbol = '<';
-	char apple_symbol = '@';
+	char snake_symbol;
+	char apple_symbol;
 	void calc() {
 
 		HANDLE stdh = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -22,5 +22,7 @@ export namespace cst {
 		frameRate = 15;
 		frameTime = 1000 / frameRate;
 		spawn_chance = 0.5 / frameRate;
+		snake_symbol = 'n';
+		apple_symbol = '@';
 	}
 };

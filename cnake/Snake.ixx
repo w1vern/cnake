@@ -1,4 +1,5 @@
 #include <list>
+#include <vector>
 #include <conio.h>
 #include <random>
 #include <ctime>
@@ -28,9 +29,9 @@ public:
 			if (body.front().getY() == 0)
 				return false;
 			body.push_front(Block{ body.front().getX(), body.front().getY() - 1 });
-				break;
+			break;
 		case down:
-			if (body.front().getY() == cst::board_y_size-1)
+			if (body.front().getY() == cst::board_y_size - 1)
 				return false;
 			body.push_front(Block{ body.front().getX(), body.front().getY() + 1 });
 			break;
@@ -52,10 +53,31 @@ public:
 	void return_back() {
 		body.push_back(old_back);
 	}
-	void getStr(std::string& output)
+	void draw(std::string& output)
 	{
 		for (Block block : body)
 			output[block.getY() * cst::board_x_size + block.getX()] = cst::snake_symbol;
+	}
+	std::vector<Block>& get_available_places()
+	{
+		std::vector<Block> available_places;
+			for (uint32_t i = 0; i < cst::board_y_size; ++i)
+				for (uint32_t j = 0; j < cst::board_x_size; ++j)
+				{
+					bool isAvailable = true;
+					for (Block block : body)
+						if (i == block.getY() && j == block.getX())
+						{
+							isAvailable = false;
+							break;
+						}
+					if (isAvailable)
+						available_places.push_back(Block{ j, i });
+				}
+	}
+	Block getHeadCoord()
+	{
+		return body.front();
 	}
 private:
 	Block old_back;
