@@ -7,15 +7,6 @@ import cst;
 
 import std;
 
-void checker(bool& key, bool& game_flag)
-{
-	while (true) {
-		std::this_thread::sleep_for(std::chrono::milliseconds(1));
-		if (_kbhit())
-			key = true;
-	}
-}
-
 export class Snake {
 public:
 	Snake()
@@ -24,46 +15,42 @@ public:
 		body.push_back(Block{ cst::board_x_size / 2, cst::board_y_size / 2 });
 		body.push_back(Block{ cst::board_x_size / 2 + 1, cst::board_y_size / 2 });
 		way = left;
-		key_was_pushed = false;
-		game_flag = true;
-		std::thread thr(checker, std::ref(key_was_pushed), std::ref(game_flag));
-		/*thr.detach();*/
-	}
-	~Snake()
-	{
-		game_flag = false;
 	}
 	bool step()
 	{
-		if (key_was_pushed)
+		if (_kbhit())
 		{
 			int inp = _getch();
 			if (inp == up || inp == down || inp == left || inp == right)
 				way = (Way)inp;
-			key_was_pushed = false;
 		}
+		Block front;
 		switch (way) {
 		case up:
 			if (body.front().getY() == 0)
 				return false;
-			body.push_front(Block{ body.front().getX(), body.front().getY() - 1 });
+			front = Block{ Block{ body.front().getX(), body.front().getY() - 1 } };
 			break;
 		case down:
 			if (body.front().getY() == cst::board_y_size - 1)
 				return false;
-			body.push_front(Block{ body.front().getX(), body.front().getY() + 1 });
+			front = Block{ Block{ body.front().getX(), body.front().getY() + 1 } };
 			break;
 		case left:
 			if (body.front().getX() == 0)
 				return false;
-			body.push_front(Block{ body.front().getX() - 1, body.front().getY() });
+			front = Block{ Block{ body.front().getX() - 1, body.front().getY() } };
 			break;
 		case right:
 			if (body.front().getX() == cst::board_x_size - 1)
 				return false;
-			body.push_front(Block{ body.front().getX() + 1, body.front().getY() });
+			front = Block{ Block{ body.front().getX() + 1, body.front().getY() } };
 			break;
 		}
+		for (Block tmp : body)
+			if (tmp.getX() == front.getX() && tmp.getY() == front.getY())
+				return false;
+		body.push_front(front);
 		old_back = body.back();
 		body.pop_back();
 		return true;
@@ -108,6 +95,4 @@ private:
 		down = 's',
 		right = 'd'
 	}way;
-	bool key_was_pushed;
-	bool game_flag;
 };

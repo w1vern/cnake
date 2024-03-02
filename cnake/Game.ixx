@@ -9,6 +9,7 @@ import std;
 
 export void game()
 {
+	std::this_thread::sleep_for(std::chrono::milliseconds(5000));
 	cst::calc();
 	Board board;
 

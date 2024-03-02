@@ -20,7 +20,7 @@ export namespace cst {
 		board_x_size = csbi.srWindow.Right - csbi.srWindow.Left + 1;
 		board_y_size = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
 
-		frameRate = 5;
+		frameRate = 15;
 		frameTime = 1000 / frameRate;
 		spawn_chance = 0.5 / frameRate;
 		snake_symbol = '^';

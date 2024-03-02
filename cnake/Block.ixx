@@ -11,7 +11,7 @@ public:
 		this->x = block.x;
 		this->y = block.y;
 	}
-	/*bool operator==(Block block)
+	/*bool operator==(const Block& block)
 	{
 		if (this->x == block.x && this->y == block.y)
 			return true;
