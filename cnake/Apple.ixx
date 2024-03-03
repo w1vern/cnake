@@ -7,15 +7,16 @@ import std;
 
 export class Apple {
 public:
-	Apple() 
+	Apple()
 	{
+		body = Block{ cst::board_x_size, cst::board_y_size };
 		needToCreate = false;
 		isExists = false;
 		std::srand(std::time(nullptr));
 	}
-	void make_apple(std::vector<Block>& available_places) 
+	void make_apple(std::vector<Block>& available_places)
 	{
-		if (needToCreate) 
+		if (needToCreate)
 		{
 			std::uint32_t len = available_places.size();
 			std::uint32_t index = std::rand() % len;
@@ -34,10 +35,9 @@ public:
 		}
 		return isExists;
 	}
-	void draw(std::string& output)
+	Block& draw()
 	{
-		output[body.getX() + body.getY() * cst::board_x_size] = cst::apple_symbol;
-
+		return body;
 	}
 	Block getAppleCoord()
 	{
@@ -46,6 +46,7 @@ public:
 	void dead()
 	{
 		isExists = false;
+		body = Block{ cst::board_x_size, cst::board_y_size };
 	}
 private:
 	Block body;

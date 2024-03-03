@@ -1,9 +1,8 @@
-#include <conio.h>
-
 export module Snake;
 
 import Block;
 import cst;
+import Input;
 
 import std;
 
@@ -11,37 +10,35 @@ export class Snake {
 public:
 	Snake()
 	{
-		body.push_back(Block{ cst::board_x_size / 2 - 1, cst::board_y_size / 2 });
-		body.push_back(Block{ cst::board_x_size / 2, cst::board_y_size / 2 });
-		body.push_back(Block{ cst::board_x_size / 2 + 1, cst::board_y_size / 2 });
-		way = left;
+		for (std::uint32_t i = 0; i < cst::snakeBodySize + 2; ++i)
+		{
+			body.push_back(Block{ cst::board_x_size / 2 + 
+				static_cast<std::uint32_t>(std::ceil(i - std::ceil(static_cast<float>(cst::snakeBodySize) / 2))),
+				cst::board_y_size / 2});
+		}
+		way = cst::start_way;
 	}
 	bool step()
 	{
-		if (_kbhit())
-		{
-			int inp = _getch();
-			if (inp == up || inp == down || inp == left || inp == right)
-				way = (Way)inp;
-		}
+		input(way);
 		Block front;
 		switch (way) {
-		case up:
+		case cst::up:
 			if (body.front().getY() == 0)
 				return false;
 			front = Block{ Block{ body.front().getX(), body.front().getY() - 1 } };
 			break;
-		case down:
+		case cst::down:
 			if (body.front().getY() == cst::board_y_size - 1)
 				return false;
 			front = Block{ Block{ body.front().getX(), body.front().getY() + 1 } };
 			break;
-		case left:
+		case cst::left:
 			if (body.front().getX() == 0)
 				return false;
 			front = Block{ Block{ body.front().getX() - 1, body.front().getY() } };
 			break;
-		case right:
+		case cst::right:
 			if (body.front().getX() == cst::board_x_size - 1)
 				return false;
 			front = Block{ Block{ body.front().getX() + 1, body.front().getY() } };
@@ -58,13 +55,9 @@ public:
 	void return_back() {
 		body.push_back(old_back);
 	}
-	void draw(std::string& output)
+	const std::list<Block>& draw()
 	{
-		for (Block block : body) {
-			/*std::cout << block.getX() << std::endl;
-			std::cout << block.getY();*/
-			output[block.getY() * cst::board_x_size + block.getX()] = cst::snake_symbol;
-		}
+		return body;
 	}
 	void get_available_places(std::vector<Block>& available_places)
 	{
@@ -89,10 +82,5 @@ public:
 private:
 	Block old_back;
 	std::list<Block> body;
-	enum Way {
-		up = 'w',
-		left = 'a',
-		down = 's',
-		right = 'd'
-	}way;
+	cst::Way way;
 };

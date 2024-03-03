@@ -1,5 +1,6 @@
 export module Board;
 
+import Draw;
 import Snake;
 import Apple;
 import Block;
@@ -12,7 +13,6 @@ public:
 	Board() {}
 	bool step()
 	{
-		std::string output(cst::board_x_size * cst::board_y_size, ' ');
 		if (!snake.step())
 			return false;
 		if (apple.Exists())
@@ -26,10 +26,8 @@ public:
 			std::vector<Block> available_places;
 			snake.get_available_places(available_places);
 			apple.make_apple(available_places);
-			apple.draw(output);
 		}
-		snake.draw(output);
-		std::cout << output;
+		draw(snake.draw(), apple.draw());
 		return true;
 	}
 private:

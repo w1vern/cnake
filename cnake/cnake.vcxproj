@@ -139,10 +139,12 @@
     <ClCompile Include="Block.ixx" />
     <ClCompile Include="board.ixx" />
     <ClCompile Include="Game.ixx" />
+    <ClCompile Include="Input.ixx" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="cst.ixx">
       <BuildStlModules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</BuildStlModules>
     </ClCompile>
+    <ClCompile Include="Draw.ixx" />
     <ClCompile Include="Snake.ixx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
