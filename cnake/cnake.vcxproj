@@ -108,7 +108,7 @@
       <CompileAs>CompileAsCpp</CompileAs>
       <EnableModules>true</EnableModules>
       <BuildStlModules>true</BuildStlModules>
-      <AdditionalIncludeDirectories>C:\Projects\Cpp\cnake\packages\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\packages\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
