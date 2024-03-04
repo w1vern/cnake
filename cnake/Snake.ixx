@@ -13,7 +13,7 @@ public:
 		for (std::uint32_t i = 0; i < cst::snakeBodySize + 2; ++i)
 		{
 			body.push_back(Block{ cst::board_x_size / 2 + 
-				static_cast<std::uint32_t>(std::ceil(i - std::ceil(static_cast<float>(cst::snakeBodySize) / 2))),
+				static_cast<std::uint32_t>(i - std::ceil(static_cast<float>(cst::snakeBodySize) / 2)),
 				cst::board_y_size / 2});
 		}
 		way = cst::start_way;

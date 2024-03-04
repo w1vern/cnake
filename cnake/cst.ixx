@@ -17,6 +17,7 @@ export namespace cst {
 	std::uint32_t frameRate;
 	std::uint32_t frameTime;
 	std::uint32_t snakeBodySize;
+	std::uint32_t draw_const;
 	float spawn_chance;
 	char snake_symbol;
 	char apple_symbol;
@@ -30,9 +31,10 @@ export namespace cst {
 
 		frameRate = 15;
 		frameTime = 1000 / frameRate;
-		snakeBodySize = 10;
+		snakeBodySize = 1;
+		draw_const = 3;
 		spawn_chance = 0.5 / frameRate;
-		snake_symbol = '^';
+		snake_symbol = '$';
 		apple_symbol = '@';
 		start_way = up;
 	}
