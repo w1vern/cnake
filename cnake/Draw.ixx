@@ -20,6 +20,10 @@ export void draw(const std::list<Block>& snake, Block& apple)
 		output[tmp.getX() + tmp.getY() * cst::board_x_size] = cst::snake_symbol;
 	if (first_try)
 	{
+		CONSOLE_CURSOR_INFO structCursorInfo;
+		GetConsoleCursorInfo(stdh, &structCursorInfo);
+		structCursorInfo.bVisible = FALSE;
+		SetConsoleCursorInfo(stdh, &structCursorInfo);
 		first_try = false;
 		last_state = output;
 		std::cout << output;
@@ -47,11 +51,7 @@ export void draw(const std::list<Block>& snake, Block& apple)
 				c.X = i % cst::board_x_size;
 				c.Y = i / cst::board_x_size;
 				SetConsoleCursorPosition(stdh, c);
-				if (last_state[i] == cst::snake_symbol)
-					std::cout << ' ';
-				else if (output[i] == cst::apple_symbol)
-					std::cout << cst::apple_symbol;
-				else std::cout << cst::snake_symbol;
+				std::cout << output[i];
 			}
 	}
 	last_state = output;
