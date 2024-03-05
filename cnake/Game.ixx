@@ -1,4 +1,4 @@
-
+#include <Windows.h>
 
 export module Game;
 
@@ -25,5 +25,7 @@ export void game()
 			if (time < cst::frameTime)
 				std::this_thread::sleep_for(std::chrono::milliseconds(cst::frameTime - time));
 		}
+		system("cls");
+		std::cout << "YOU LOST!";
 	}
 }

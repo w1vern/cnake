@@ -21,21 +21,23 @@ export namespace cst {
 	float spawn_chance;
 	char snake_symbol;
 	char apple_symbol;
+	char board_symbol;
 	Way start_way;
 	void calc() {
 		HANDLE stdh = GetStdHandle(STD_OUTPUT_HANDLE);
 		CONSOLE_SCREEN_BUFFER_INFO csbi;
 		GetConsoleScreenBufferInfo(stdh, &csbi);
-		board_x_size = csbi.srWindow.Right - csbi.srWindow.Left + 1;
-		board_y_size = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+		board_x_size = csbi.srWindow.Right - csbi.srWindow.Left - 1;
+		board_y_size = csbi.srWindow.Bottom - csbi.srWindow.Top - 1;
 
-		frameRate = 15;
+		frameRate = 30;
 		frameTime = 1000 / frameRate;
 		snakeBodySize = 1;
 		draw_const = 3;
 		spawn_chance = 0.5 / frameRate;
 		snake_symbol = '$';
 		apple_symbol = '@';
+		board_symbol = '#';
 		start_way = up;
 	}
 };
